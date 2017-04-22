@@ -14,3 +14,28 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+//route for state
+Route::resource('states','StatesController');
+
+//route for area
+Route::resource('areas','AreasController');
+
+//route for category
+Route::resource('categories','CategoriesController');
+
+//route for subcat
+Route::resource('subcategories','SubcategoriesController');
+
+//route for subcat
+Route::resource('listing_types','Listing_typesController');
+
+//route for subcat
+Route::resource('brands','BrandsController');
+
+//route for subcat
+Route::resource('products','ProductsController');
