@@ -62,9 +62,9 @@
 
                         <div class="form-group">
                             
-                            <button type="submit" class="btn btn-primary">SUbmit</button>
+                            <button type="submit" class="btn btn-primary">SUBMIT</button>
 
-                            <a href="{{ route('products.index') }}" class="btn btn-danger">Cancel</a>
+                            <a href="{{ route('products.index') }}" class="btn btn-danger">CANCEL</a>
 
                         </div>
 
@@ -93,6 +93,34 @@
             $.get( ajax_url, function( data ) {
                 
                 console.log(data)
+
+                $('#area_id').empty().append('<option value="">Select Area</option');
+
+                $.each(data, function(area_id,area_name) {
+
+                    $('#area_id').append('<option value='+area_id+'>'+area_name+'</option');
+                });
+
+            });
+        });
+
+         $( "#category_id" ).change(function() {
+            var category_id = $(this).val();
+            console.log(category_id);
+
+            var ajax_url = '/products/subcategories/' + category_id;
+
+            $.get( ajax_url, function( data ) {
+                
+                console.log(data)
+
+                $('#subcategory_id').empty().append('<option value="">Select Subcategory</option');
+
+                $.each(data, function(subcategory_id,subcategory_name) {
+
+                    $('#subcategory_id').append('<option value='+subcategory_id+'>'+subcategory_name+'</option');
+                });
+
             });
         });
     });

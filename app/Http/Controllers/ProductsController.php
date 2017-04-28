@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Brand;
 use App\State;
-use App\category;
+use App\Category;
+use App\Area;
+use App\Subcategory;
 
 class ProductsController extends Controller
 {
@@ -98,6 +100,19 @@ class ProductsController extends Controller
 
     public function getStateAreas($state_id)
     {
-        echo 'at controller'.$state_id;
+        
+        $areas = Area::whereStateId($state_id)->pluck('area_name','id');
+
+        return $areas;
+        // echo 'at controller'.$state_id;
+    }
+
+    public function getSubCategories($category_id)
+    {
+        
+        $categories = Subcategory::whereCategoryId($category_id)->pluck('subcategory_name','id');
+
+        return $categories;
+        // echo 'at controller'.$state_id;
     }
 }

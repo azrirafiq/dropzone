@@ -39,4 +39,7 @@ Route::resource('brands','BrandsController');
 
 //route for subcat
 Route::get('products/areas/{state_id}', 'ProductsController@getStateAreas');
+
+Route::get('products/subcategories/{category_id}', 'ProductsController@getSubCategories');
+
 Route::resource('products','ProductsController');

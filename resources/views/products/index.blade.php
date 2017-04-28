@@ -42,7 +42,7 @@
                                     {{ $product->condition}}
                                 </td>
                                 <td>
-                                    {{ $product->subcategory->subcategories_name}}
+                                    {{ $product->subcategory->subcategory_name}}
                                 </td>
                                 <td>
                                     {{ $product->brand->brand_name}}
