@@ -51,6 +51,23 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
+        $product = new Product;
+        $product->product_name = $request->product_name;
+        $product->product_description = $request->product_description;
+        $product->product_price = $request->product_price;
+        $product->condition = $request->condition;
+        $product->brand_id = $request->brand_id;
+        $product->state_id = $request->state_id;
+        $product->area_id = $request->area_id;
+        // $product->category_id = $request->category_id;
+        $product->subcategory_id = $request->subcategory_id;
+
+        $product->user_id = auth()->id();
+
+        $product->save();
+
+        return redirect()->route('products.index');
+
     }
 
     /**
