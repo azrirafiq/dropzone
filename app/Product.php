@@ -19,5 +19,8 @@ class Product extends Model
 	public function state() {
 		return $this->belongsTo('App\State');
 	}
+	public function user() {
+		return $this->belongsTo('App\User');
+	}
 
 }

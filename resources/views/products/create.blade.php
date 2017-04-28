@@ -8,6 +8,18 @@
                 <div class="panel-heading">Create Products</div>
 
                 <div class="panel-body">
+                    @if($errors->all())
+                    <div class="alert alert-danger" role="alert">
+                        <p style="font-weight: bold;">please fix :</p>
+                            <ul>
+                            @foreach ($errors->all() as $message)
+                                <li>{{ $message }}</li>
+                            @endforeach
+                            </ul>
+                    </div>
+                    @endif
+
+
                     {!! Form::open(['route' => 'products.store']) !!}
 
                         <div class="form-group">

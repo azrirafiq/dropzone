@@ -9,6 +9,7 @@ use App\State;
 use App\Category;
 use App\Area;
 use App\Subcategory;
+use App\Http\Requests\CreateProductRequest;
 
 class ProductsController extends Controller
 {
@@ -48,10 +49,11 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
         //
         $product = new Product;
+
         $product->product_name = $request->product_name;
         $product->product_description = $request->product_description;
         $product->product_price = $request->product_price;
