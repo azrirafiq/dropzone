@@ -38,4 +38,5 @@ Route::resource('listing_types','Listing_typesController');
 Route::resource('brands','BrandsController');
 
 //route for subcat
+Route::get('products/areas/{state_id}', 'ProductsController@getStateAreas');
 Route::resource('products','ProductsController');

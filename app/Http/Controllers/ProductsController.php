@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Brand;
+use App\State;
+use App\category;
 
 class ProductsController extends Controller
 {
@@ -28,6 +31,13 @@ class ProductsController extends Controller
     public function create()
     {
         //
+        $brands = Brand::pluck('brand_name','id');
+
+        $states = State::pluck('state_name','id');
+
+        $categories = Category::pluck('category_name','id');
+
+        return view('products.create',compact('brands','states','categories'));
     }
 
     /**
@@ -84,5 +94,10 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getStateAreas($state_id)
+    {
+        echo 'at controller'.$state_id;
     }
 }

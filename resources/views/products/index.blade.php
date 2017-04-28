@@ -8,6 +8,8 @@
                 <div class="panel-heading">Manage Products</div>
 
                 <div class="panel-body">
+
+                    <a href="{{ route('products.create') }}" class="btn btn-warning">Create Product</a>
                     
                     <table class="table">
                         <thead>
