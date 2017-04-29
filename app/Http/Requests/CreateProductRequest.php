@@ -34,7 +34,7 @@ class CreateProductRequest extends FormRequest
             'area_id' => 'required|integer',
             'category_id' => 'required|integer',
             'subcategory_id' => 'required|integer',
-            'product_image' => 'required|image|mimes:jpg,png,jpeg,gif',
+            'product_image' => 'image|mimes:jpg,png,jpeg,gif',
         ];
     }
 }

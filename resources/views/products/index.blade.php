@@ -4,6 +4,48 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Search Product</div>
+                <div class="panel-body">
+                    <form action="{{ route('products.index')}}">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {!! Form::label('search_brand','Brand') !!}
+                                    {!! Form::select('search_brand', $brands, null, ['placeholder' => 'Select Brand','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'brand_id']); !!}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {!! Form::label('search_category','Category') !!}
+                                    {!! Form::select('search_category', $categories, null, ['placeholder' => 'Select Category','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'category_id']); !!}                            
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {!! Form::label('search_state','State') !!}
+                                    {!! Form::select('search_state', $states, null, ['placeholder' => 'Select State','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'state_id']); !!}                            
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {!! Form::label('search_anything','By Product Name/Desc') !!}
+                                    {!! Form::text('search_anything',Request::get('search_anything'),['class'=>'form_control']) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group" style="padding-top: 25px">
+                                    <button type="submit" class="btn btn-success">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
             <div class="panel panel-warning">
                 <div class="panel-heading">Manage Products</div>
 
@@ -22,6 +64,7 @@
                                 <th>Subcategory</th>
                                 <th>Brand</th>
                                 <th>User</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,11 +94,15 @@
                                 <td>
                                     {{ $product->user->name}}
                                 </td>
+                                <td>
+                                    <a href="{{ route('products.edit',$product->id) }}" class="btn btn-info">Edit</a>
+                                    <a href="#" class="btn btn-danger">Delete</a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-
+                    {{ $products->appends(Request::except('page'))->links() }}
                 </div>
             </div>
         </div>
