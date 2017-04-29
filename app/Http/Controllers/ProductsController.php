@@ -66,7 +66,16 @@ class ProductsController extends Controller
 
         $product->user_id = auth()->id();
 
+        if ($request->hasFile('product_image')) {
+
+            $path = $request->product_image->store('images');
+
+            $product->product_image = $path;
+        }
+
         $product->save();
+
+        flash('Product succesfully created')->overlay();
 
         return redirect()->route('products.index');
 

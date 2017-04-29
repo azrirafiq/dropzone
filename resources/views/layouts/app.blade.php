@@ -82,11 +82,18 @@
             </div>
         </nav>
 
+        <div class="container-fluid">
+            @include ('flash::message')
+        </div>
+
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $('#flash-overlay-modal').modal();
+    </script>
 </body>
 </html>
 

@@ -37,7 +37,7 @@
                                     {{ $product->product_price}}
                                 </td>
                                 <td>
-                                    {{ $product->area->area_name}},<br>{{$product->state->state_name}}
+                                    {{ $product->area->area_name}}, {{$product->state->state_name}}
                                 </td>
                                 <td>
                                     {{ $product->condition}}
