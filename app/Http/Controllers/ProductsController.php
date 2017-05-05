@@ -33,6 +33,40 @@ class ProductsController extends Controller
                 $query->orWhere('product_name','like','%'.$search_anything."%")->orWhere('product_description','like','%'.$search_anything.'%');
             });
         }
+            //search by state
+        if (!empty($request->search_state)) {
+
+            $search_state = $request->search_state;
+
+            $products = $products->whereHas('area', function ($query) use ($search_state) {
+            $query->where('state_id', $search_state);
+            });
+        }
+
+        if (!empty($request->search_brand)) {
+
+            $search_brand = $request->search_brand;
+
+            $products = $products->whereBrandId($search_brand);
+        }
+
+        if (!empty($request->search_category)) {
+
+            $search_category = $request->search_category;
+
+            $products = $products->whereHas('subcategory', function ($query) use ($search_category) {
+            $query->where('category_id', $search_category);
+            });
+        }
+
+        if (!empty($request->search_area)) {
+
+            $search_area = $request->search_area;
+
+            $products = $products->whereAreaId($search_area);
+        }
+
+
 
         //paginate the data
         $products = $products->paginate(5);
