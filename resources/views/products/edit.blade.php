@@ -66,7 +66,7 @@
 
                         <div class="form-group {{ $errors->has('condition') ? 'has-error' : false}}">
                             {!! Form::label('condition','Product Condition') !!}<br>
-                            {!! Form::radio('condition','new',true); !!}New<br>
+                            {!! Form::radio('condition','new',true); !!}New
                             {!! Form::radio('condition','used',false); !!}used
                         </div>
 
@@ -77,7 +77,7 @@
 
                         <div class="form-group">
                             @if(!empty($product->product_image))
-                            <img src="{{ asset('storage/images/'.$product->product_image)}}">
+                            <img src="{{ asset('storage/uploads/'.$product->product_image)}}" class="img-responsive img-thumbnail">
                             @endif
                         </div>
 

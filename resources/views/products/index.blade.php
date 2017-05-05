@@ -30,9 +30,9 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="form-group">
+                                <div class="form-group" >
                                     {!! Form::label('search_anything','By Product Name/Desc') !!}
-                                    {!! Form::text('search_anything',Request::get('search_anything'),['class'=>'form-control']) !!}
+                                    {!! Form::text('search_anything',Request::get('search_anything'),['class'=>'form-control','style'=>'background-color: #99ff99']) !!}
                                 </div>
                             </div>
                             <div class="col-md-1">
@@ -60,7 +60,7 @@
             </div>
 
 
-            <div class="panel panel-warning">
+            <div class="panel panel-danger">
                 <div class="panel-heading">Manage Products</div>
 
                 <div class="panel-body" style="overflow-x: auto;">
@@ -70,6 +70,7 @@
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
+                                <th  style="width: 150px; height: auto;">Thumbnail</th>
                                 <th>Product Title</th>
                                 <th>Product Description</th>
                                 <th>Price</th>
@@ -84,6 +85,15 @@
                         <tbody>
                             @foreach($products as $product)
                             <tr>
+                                <td>
+
+                                    @if(!empty($product->product_image))
+                                        <img src="{{ asset('storage/uploads/'.$product->product_image) }}" class="img-responsive img-thumbnail">
+                                    @else
+                                        <img src="{{ asset('storage/uploads/defaultthumbnail.jpg') }}" class="img-responsive img-thumbnail">
+                                    @endif
+
+                                </td>
                                 <td>
                                     {{ $product->product_name}}
                                 </td>
@@ -108,9 +118,18 @@
                                 <td>
                                     {{ $product->user->name}}
                                 </td>
-                                <td>
-                                    <a href="{{ route('products.edit',$product->id) }}" class="btn btn-info">Edit</a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                <td>                                    
+                                    <form method="POST" action="{{ route('products.destroy',$product->id) }}">
+
+                                        <input type="hidden" name="_method" value="DELETE">
+
+                                        {{ csrf_field() }}
+
+                                        <a href="{{ route('products.edit',$product->id) }}" class="btn btn-info">Edit</a>
+
+                                        <button type="button" class="btn btn-danger delete">Delete</button>
+
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -168,44 +187,67 @@
         }
 
         //subcategory
-        $( "#state_id" ).change(function() {
-            var state_id = $(this).val();
+        $( "#category_id" ).change(function() {
+            var category_id = $(this).val();
 
-            getStateAreas(state_id);
+            getSubcategory(category_id);
            
         });
 
-        var selected_state_id = '{{ Request::get('search_state') }}';
+        var selected_category_id = '{{ Request::get('search_category') }}';
 
-        if (selected_state_id.length>0) {
+        if (selected_category_id.length>0) {
 
-            getStateAreas(selected_state_id);
+            getSubcategory(selected_category_id);
         }
 
-        function getStateAreas(state_id) {
-            var ajax_url = '/products/areas/' + state_id;
+        function getSubcategory(category_id) {
+            var ajax_url = '/products/subcategories/' + category_id;
 
 
             $.get( ajax_url, function( data ) {
                 
                 // console.log(data)
 
-                $('#area_id').empty().append('<option value="">Select Area</option');
+                $('#subcategory_id').empty().append('<option value="">Select Subcategory</option');
 
-                $.each(data, function(area_id,area_name) {
+                $.each(data, function(subcategory_id,subcategory_name) {
 
-                    $('#area_id').append('<option value='+area_id+'>'+area_name+'</option');
+                    $('#subcategory_id').append('<option value='+subcategory_id+'>'+subcategory_name+'</option');
                 });
                 
-                var selected_area_id = '{{ Request::get('search_area') }}';
-                if (selected_area_id.length>0) {
+                var selected_subcategory_id = '{{ Request::get('search_subcategory') }}';
+                if (selected_subcategory_id.length>0) {
 
-                $('#area_id').val(selected_area_id);
+                $('#subcategory_id').val(selected_subcategory_id);
                 }
 
             });
         }
 
+        $('.delete').click(function(){
+            //sweet alert confirm
+            var closest_form = $(this).closest('form')
+
+            swal({
+              title: "Are you sure?",
+              text: "You will not be able to recover this imaginary file!",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, delete it!",
+              cancelButtonText: "No, cancel please!",
+              closeOnConfirm: false,
+              closeOnCancel: false
+            },
+            function(isConfirm){
+              if (isConfirm) {
+                closest_form.submit();
+              } else {
+                swal("Cancelled", "Your imaginary file is safe :)", "error");
+              }
+            });
+        });
     });
 
 </script>

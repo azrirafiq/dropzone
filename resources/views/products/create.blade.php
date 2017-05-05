@@ -65,7 +65,7 @@
 
                         <div class="form-group {{ $errors->has('condition') ? 'has-error' : false}}">
                             {!! Form::label('condition','Product Condition') !!}<br>
-                            {!! Form::radio('condition','new',true); !!}New<br>
+                            {!! Form::radio('condition','new',true); !!}New
                             {!! Form::radio('condition','used',false); !!}used
                         </div>
 

@@ -66,10 +66,17 @@ class ProductsController extends Controller
             $products = $products->whereAreaId($search_area);
         }
 
+        if (!empty($request->search_subcategory)) {
 
+            $search_subcategory = $request->search_subcategory;
+
+            $products = $products->whereSubcategoryId($search_subcategory);
+        }
+
+        $products = $products->orderBy('id','desc');
 
         //paginate the data
-        $products = $products->paginate(5);
+        $products = $products->paginate(6);
 
 
         $brands =Brand::pluck('brand_name','id');
@@ -123,9 +130,9 @@ class ProductsController extends Controller
 
         if ($request->hasFile('product_image')) {
 
-            $path = $request->product_image->store('images');
+            $path = $request->product_image->store('public/uploads');
 
-            $product->product_image = $request->product_image->hashNAme();
+            $product->product_image = $request->product_image->hashName();
         }
 
         $product->save();
@@ -196,7 +203,7 @@ class ProductsController extends Controller
 
         if ($request->hasFile('product_image')) {
 
-            $path = $request->product_image->store('images');
+            $path = $request->product_image->store('public/uploads');
 
             $product->product_image = $request->product_image->hashNAme();
 
@@ -221,6 +228,13 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+        $product = Product::findOrFail($id);
+
+        $product->delete();
+
+        flash('Product succesfully deleted')->overlay();
+
+        return redirect()->route('products.index');
     }
 
     public function getStateAreas($state_id)
