@@ -9,7 +9,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Search Product</div>
                 <div class="panel-body">
-                    <form action="{{ route('products.index')}}">
+                    <form action="{{ route('admin.products.index')}}">
                         <div class="row">                            
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -65,9 +65,7 @@
 
                 <div class="panel-body" style="overflow-x: auto;">
 
-                @role('members')
-                    <a href="{{ route('products.create') }}" class="btn btn-warning" style="margin-bottom: 15px">Create Product</a>
-                @endrole
+                    <a href="{{ route('admin.products.create') }}" class="btn btn-warning" style="margin-bottom: 15px">Create Product</a>
                     
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -119,10 +117,20 @@
                                 </td>
                                 <td>
                                     {{ $product->user->name}}
-                                </td> 
-                                    <td>
-                                            <a href="{{ route('products.show',$product->id) }}" class="btn btn-info">Show</a>                               
-                                    </td>
+                                </td>
+                                <td>                                    
+                                    <form method="POST" action="{{ route('admin.products.destroy',$product->id) }}">
+
+                                        <input type="hidden" name="_method" value="DELETE">
+
+                                        {{ csrf_field() }}
+
+                                        <a href="{{ route('admin.products.edit',$product->id) }}" class="btn btn-info">Edit</a>
+
+                                        <button type="button" class="btn btn-danger delete">Delete</button>
+
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -155,7 +163,7 @@
         }
 
         function getStateAreas(state_id) {
-            var ajax_url = '/products/areas/' + state_id;
+            var ajax_url = '/admin/products/areas/' + state_id;
 
 
             $.get( ajax_url, function( data ) {
@@ -194,7 +202,7 @@
         }
 
         function getSubcategory(category_id) {
-            var ajax_url = '/products/subcategories/' + category_id;
+            var ajax_url = '/admin/products/subcategories/' + category_id;
 
 
             $.get( ajax_url, function( data ) {

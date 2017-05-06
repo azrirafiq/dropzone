@@ -78,7 +78,7 @@
                             
                             <button type="submit" class="btn btn-primary">SUBMIT</button>
 
-                            <a href="{{ route('products.index') }}" class="btn btn-danger">CANCEL</a>
+                            <a href="{{ route('my_products') }}" class="btn btn-danger">CANCEL</a>
 
                         </div>
 

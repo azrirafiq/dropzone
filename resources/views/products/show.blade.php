@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-primary">
-                <div class="panel-heading">Edit Products</div>
+                <div class="panel-heading">View Products</div>
 
                 <div class="panel-body">
                     @if($errors->all())
@@ -20,33 +20,44 @@
                     @endif
 
 
-                    {!! Form::open(['route' => ['products.update',$product->id], 'method'=>'PUT', 'files' => true]) !!}
+                    {!! Form::open() !!}
+                        
+                        <div class="form-group">
+                            @if(!empty($product->product_image))
+                            <img src="{{ asset('storage/uploads/'.$product->product_image)}}" class="img-responsive img-thumbnail">
+                            @endif
+                        </div>
 
                         <div class="form-group {{ $errors->has('category_id') ? 'has-error' : false}}">
                             {!! form::label('category_id','Category') !!}
-                            {!! Form::select('category_id', $categories, $product->subcategory->category_id, ['placeholder' => 'Select Category','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'category_id']); !!}
+                            <!-- {!! Form::select('category_id', $categories, $product->subcategory->category_id, ['placeholder' => 'Select Category','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'category_id']); !!} -->
+                            {!! Form::text('category_name',$product->subcategory->category->category_name,['class'=>'form-control']); !!}
                             
                         </div>
 
                         <div class="form-group {{ $errors->has('category_id') ? 'has-error' : false}}">
                             {!! form::label('subcategory_id','Subcategory') !!}
-                            {!! Form::select('subcategory_id', $subcategories, $product->subcategory_id, ['placeholder' => 'Select Subcategory','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'subcategory_id']); !!}
+                            <!-- {!! Form::select('subcategory_id', $subcategories, $product->subcategory_id, ['placeholder' => 'Select Subcategory','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'subcategory_id']); !!} -->
+                            {!! Form::text('subcategory_name',$product->subcategory->subcategory_name,['class'=>'form-control']); !!}
                             
                         </div>
                         <div class="form-group {{ $errors->has('state_id') ? 'has-error' : false}}">
                             {!! form::label('state_id','State') !!}
-                            {!! Form::select('state_id', $states, $product->area->state_id, ['placeholder' => 'Select State','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'state_id']); !!}
-                            
+                            <!-- {!! Form::select('state_id', $states, $product->area->state_id, ['placeholder' => 'Select State','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'state_id']); !!} -->
+                            {!! Form::text('state_name',$product->area->state->state_name,['class'=>'form-control']); !!}
+
                         </div>
                         <div class="form-group {{ $errors->has('area_id') ? 'has-error' : false}}">
                             {!! form::label('area_id','Area') !!}
-                            {!! Form::select('area_id', $areas, $product->area_id, ['placeholder' => 'Select Area','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'area_id']); !!}
+                            <!-- {!! Form::select('area_id', $areas, $product->area_id, ['placeholder' => 'Select Area','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'area_id']); !!} -->
+                            {!! Form::text('area_name',$product->area->area_name,['class'=>'form-control']); !!}
                             
                         </div>
 
                         <div class="form-group {{ $errors->has('brand_id') ? 'has-error' : false}}">
                             {!! form::label('brand_id','Brand') !!}
-                            {!! Form::select('brand_id', $brands, $product->brand_id, ['placeholder' => 'Select Brand','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'brand_id']); !!}
+                          <!--   {!! Form::select('brand_id', $brands, $product->brand_id, ['placeholder' => 'Select Brand','class'=>'form-control','style'=>'background-color: #99ff99','id'=>'brand_id']); !!} -->
+                            {!! Form::text('brand_name', $product->brand->brand_name,['class'=>'form-control']); !!}
                             
                         </div>
                         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : false}}">
@@ -66,26 +77,23 @@
 
                         <div class="form-group {{ $errors->has('condition') ? 'has-error' : false}}">
                             {!! Form::label('condition','Product Condition') !!}<br>
-                            {!! Form::radio('condition','new',true); !!}New
-                            {!! Form::radio('condition','used',false); !!}used
+                            <!-- {!! Form::radio('condition','new',true); !!}New
+                            {!! Form::radio('condition','used',false); !!}used -->
+                            {!! Form::text('product_condition', $product->condition,['class'=>'form-control']); !!}
                         </div>
 
-                        <div class="form-group {{ $errors->has('product_image') ? 'has-error' : false}}">
+                        <!-- <div class="form-group {{ $errors->has('product_image') ? 'has-error' : false}}">
                             {!! Form::label('product_image','Product image') !!}
                             {!! Form::file('product_image') !!}
-                        </div>
+                        </div> -->
 
-                        <div class="form-group">
-                            @if(!empty($product->product_image))
-                            <img src="{{ asset('storage/uploads/'.$product->product_image)}}" class="img-responsive img-thumbnail">
-                            @endif
-                        </div>
+                        
 
-                        <div class="form-group">
+                        <div class="form-group"><!-- 
                             
-                            <button type="submit" class="btn btn-primary">SUBMIT</button>
+                            <button type="submit" class="btn btn-primary">SUBMIT</button> -->
 
-                            <a href="{{ route('my_products') }}" class="btn btn-danger">CANCEL</a>
+                            <a href="{{ route('products.index') }}" class="btn btn-danger">BACK</a>
 
                         </div>
 
@@ -98,7 +106,7 @@
 </div>
 @endsection
 
-
+<!-- 
 @section('script')
 <script type="text/javascript">
     
@@ -199,4 +207,4 @@
 
 </script>
 
-@endsection
+@endsection -->

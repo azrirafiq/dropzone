@@ -20,7 +20,7 @@
                     @endif
 
 
-                    {!! Form::open(['route' => ['products.update',$product->id], 'method'=>'PUT', 'files' => true]) !!}
+                    {!! Form::open(['route' => ['admin.products.update',$product->id], 'method'=>'PUT', 'files' => true]) !!}
 
                         <div class="form-group {{ $errors->has('category_id') ? 'has-error' : false}}">
                             {!! form::label('category_id','Category') !!}
@@ -85,7 +85,7 @@
                             
                             <button type="submit" class="btn btn-primary">SUBMIT</button>
 
-                            <a href="{{ route('my_products') }}" class="btn btn-danger">CANCEL</a>
+                            <a href="{{ route('admin.products.index') }}" class="btn btn-danger">CANCEL</a>
 
                         </div>
 
@@ -119,7 +119,7 @@
         }
 
         function getStateAreas(state_id) {
-            var ajax_url = '/products/areas/' + state_id;
+            var ajax_url = '/admin/products/areas/' + state_id;
 
 
             $.get( ajax_url, function( data ) {
@@ -151,7 +151,7 @@
         });
 
         function getCategorySub(category_id) {
-            var ajax_url = '/products/subcategories/' + category_id;
+            var ajax_url = '/admin/products/subcategories/' + category_id;
 
             $.get( ajax_url, function( data ) {
 
@@ -180,7 +180,7 @@
 
             getCategorySub(category_id);
 
-            // var ajax_url = '/products/subcategories/' + category_id;
+            // var ajax_url = '/admin/products/subcategories/' + category_id;
 
             // $.get( ajax_url, function( data ) {
                 

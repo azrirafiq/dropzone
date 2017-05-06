@@ -61,7 +61,7 @@
 
 
             <div class="panel panel-danger">
-                <div class="panel-heading">Manage Products</div>
+                <div class="panel-heading">Manage My Listed Products</div>
 
                 <div class="panel-body" style="overflow-x: auto;">
 
@@ -81,7 +81,9 @@
                                 <th>Subcategory</th>
                                 <th>Brand</th>
                                 <th>User</th>
-                                <th>Action</th>
+                                @role('members') 
+                                    <th>Action</th>
+                                @endrole
                             </tr>
                         </thead>
                         <tbody>
@@ -119,10 +121,22 @@
                                 </td>
                                 <td>
                                     {{ $product->user->name}}
-                                </td> 
-                                    <td>
-                                            <a href="{{ route('products.show',$product->id) }}" class="btn btn-info">Show</a>                               
+                                </td>
+                                @role('members')  
+                                    <td>                                                                 
+                                        <form method="POST" action="{{ route('products.destroy',$product->id) }}">
+
+                                            <input type="hidden" name="_method" value="DELETE">
+
+                                            {{ csrf_field() }}
+
+                                            <a href="{{ route('products.edit',$product->id) }}" class="btn btn-info">Edit</a>
+
+                                            <button type="button" class="btn btn-danger delete">Delete</button>
+
+                                        </form>                                
                                     </td>
+                                @endrole
                             </tr>
                             @endforeach
                         </tbody>

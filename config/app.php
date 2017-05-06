@@ -164,6 +164,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Laratrust\LaratrustServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -231,6 +234,8 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
 
     ],
 
